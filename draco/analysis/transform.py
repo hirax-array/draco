@@ -212,6 +212,7 @@ class CollateProducts(task.SingleTask):
             bt_keys = np.array(
                 np.arange(self.telescope.nfeed), dtype=[("chan_id", "u2")]
             )
+            ss_keys = np.array(ss_keys, dtype=[('chan_id', 'u2')])
             match_sn = False
 
         field_to_match = "correlator_input" if match_sn else "chan_id"
