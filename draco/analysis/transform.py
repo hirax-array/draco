@@ -516,7 +516,10 @@ class MModeTransform(task.SingleTask):
 
 def _make_marray(ts, mmax):
     # Construct an array of m-modes from a sidereal time stream
-    mmodes = np.fft.fft(ts, axis=-1) / ts.shape[-1]
+    if ts.size > 0:
+        mmodes = np.fft.fft(ts, axis=-1) / ts.shape[-1]
+    else:
+        mmodes = np.zeros_like(ts)
     marray = _pack_marray(mmodes, mmax)
 
     return marray

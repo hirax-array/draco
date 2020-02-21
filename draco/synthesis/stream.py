@@ -143,7 +143,10 @@ class SimulateSidereal(task.SingleTask):
         del col_vis_tmp
 
         # Fourier transform m-modes back to get final timestream.
-        vis_stream = np.fft.ifft(col_vis, axis=-1) * ntime
+        if col_vis.size != 0:
+            vis_stream = np.fft.ifft(col_vis, axis=-1) * ntime
+        else:
+            vis_stream = np.zeros(col_vis.shape, dtype=col_vis.dtype)
         vis_stream = vis_stream.reshape((tel.npairs, lfreq, ntime))
         vis_stream = vis_stream.transpose((1, 0, 2)).copy()
 
